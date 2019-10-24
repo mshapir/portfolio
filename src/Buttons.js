@@ -11,7 +11,7 @@ class Buttons extends React.Component {
     event.stopPropagation();
     this.setState({
       checked: event.target.value
-    });
+    }, () => this.props.updateActiveView(this.state.checked));
   }
 
   render() {

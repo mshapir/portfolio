@@ -80,14 +80,14 @@ class SignUpForm extends React.Component {
             </Form.Group>
           </Form.Row>
           <Form.Row>
-            <Form.Group as={Col} md="9" controlId="formBasicEmail">
+            <Form.Group as={Col} md="7" controlId="formBasicEmail">
               <Form.Label>Email</Form.Label>
               <Form.Control type="email" placeholder="user@portfolio.com" ref="email" required />
               <Form.Control.Feedback type="invalid">
                 Please provide a valid email.
               </Form.Control.Feedback>
             </Form.Group>
-            <Form.Group as={Col} md="3" controlId="formBasicPassword">
+            <Form.Group as={Col} md="5" controlId="formBasicPassword">
               <Form.Label>Password</Form.Label>
               <Form.Control type="password" placeholder="Password" ref="password" required />
               <Form.Control.Feedback type="invalid">
@@ -96,7 +96,7 @@ class SignUpForm extends React.Component {
             </Form.Group>
           </Form.Row>
           <Form.Row>
-            <Form.Group as={Col} md={{ span: 2, offset: 5 }}>
+            <Form.Group as={Col} md={{ span: 2, offset: 4 }}>
               <Button type="submit">Sign Up</Button>
             </Form.Group>
             <Form.Group as={Col} md="4">
