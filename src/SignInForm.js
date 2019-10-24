@@ -1,5 +1,5 @@
 import React from 'react';
-import { Form, Button, InputGroup } from 'react-bootstrap';
+import { Form, Button, InputGroup, Col } from 'react-bootstrap';
 
 class SignInForm extends React.Component {
   state = {
@@ -22,8 +22,8 @@ class SignInForm extends React.Component {
     }
   }
 
-  function signIn() {
-    // call API here for authentication 
+  signIn() {
+    // call API here for authentication
   }
 
   render() {
@@ -32,23 +32,23 @@ class SignInForm extends React.Component {
         <Form noValidate validated={this.state.validated} onSubmit={this.handleSubmit.bind(this)}>
         <Form.Group controlId="validationCustomUsername">
           <Form.Label>Username</Form.Label>
-          <InputGroup>
-            <InputGroup.Prepend>
-              <InputGroup.Text id="inputGroupPrepend">@</InputGroup.Text>
-            </InputGroup.Prepend>
-            <Form.Control
-              ref="username"
-              type="text"
-              placeholder="Username"
-              pattern="^[_A-z0-9]{1,}$"
-              aria-describedby="inputGroupPrepend"
-              required
-            />
-            <Form.Control.Feedback type="invalid">
-              Please enter a valid username.
-            </Form.Control.Feedback>
-          </InputGroup>
-        </Form.Group>
+            <InputGroup>
+              <InputGroup.Prepend>
+                <InputGroup.Text id="inputGroupPrepend">@</InputGroup.Text>
+              </InputGroup.Prepend>
+              <Form.Control
+                ref="username"
+                type="text"
+                placeholder="Username"
+                pattern="^[_A-z0-9]{1,}$"
+                aria-describedby="inputGroupPrepend"
+                required
+              />
+              <Form.Control.Feedback type="invalid">
+                Please enter a valid username.
+              </Form.Control.Feedback>
+            </InputGroup>
+          </Form.Group>
           <Form.Group controlId="formGroupPassword">
             <Form.Label>Password</Form.Label>
             <Form.Control
@@ -58,7 +58,14 @@ class SignInForm extends React.Component {
               pattern="^[_A-z0-9]{1,}$"
             />
           </Form.Group>
-          <Button type="submit">Sign In</Button>
+          <Form.Row>
+            <Form.Group as={Col} md={{ span: 2, offset: 5 }}>
+              <Button type="submit">Sign In</Button>
+            </Form.Group>
+            <Form.Group as={Col} md="4">
+              <Button variant="link" onClick={() => this.props.changeFormDisplay(false)}>Create an account</Button>
+            </Form.Group>
+          </Form.Row>
         </Form>
       </div>
     );

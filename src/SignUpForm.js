@@ -28,8 +28,8 @@ class SignUpForm extends React.Component {
     }
   }
 
-  function signUp() {
-    // call API here for user creation 
+  signUp() {
+    // call API here for user creation
   }
 
   render() {
@@ -95,7 +95,14 @@ class SignUpForm extends React.Component {
               </Form.Control.Feedback>
             </Form.Group>
           </Form.Row>
-          <Button type="submit">Sign Up</Button>
+          <Form.Row>
+            <Form.Group as={Col} md={{ span: 2, offset: 5 }}>
+              <Button type="submit">Sign Up</Button>
+            </Form.Group>
+            <Form.Group as={Col} md="4">
+              <Button variant="link" onClick={() => this.props.changeFormDisplay(true)}>Sign in to an existing account</Button>
+            </Form.Group>
+          </Form.Row>
         </Form>
       </div>
     );

@@ -1,14 +1,14 @@
 import React from 'react';
 import './App.css';
-import FormContainer from './FormContainer';
+import Home from './Home.js';
 
 function App() {
   return (
     <div className="App">
-      <header className="App-header">
+      <header className="Header">
         Portfolio
       </header>
-      <FormContainer isSignIn />
+      <Home />
     </div>
   );
 }

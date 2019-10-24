@@ -6,7 +6,7 @@
   height: 40vmin;
 }
 
-.App-header {
+.Header {
   background-color: #282c34;
   display: flex;
   flex-direction: column;
@@ -14,6 +14,7 @@
   justify-content: center;
   font-size: calc(10px + 2vmin);
   color: white;
+  height: 50px;
 }
 
 .App-link {
@@ -24,4 +25,9 @@
   width: 50%;
   margin: auto;
   padding-top: 80px;
+}
+
+.ButtonGroup {
+  width: 15%;
+  margin-left: auto;
 }

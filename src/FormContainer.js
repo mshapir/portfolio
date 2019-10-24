@@ -12,7 +12,7 @@ class FormContainer extends React.Component {
         <Card>
           <Card.Header as="h5">{this.props.isSignIn ? signInTitle : signUpTitle}</Card.Header>
           <Card.Body>
-            {this.props.isSignIn ? <SignInForm /> : <SignUpForm />}
+            {this.props.isSignIn ? <SignInForm changeFormDisplay={this.props.changeFormDisplay} /> : <SignUpForm changeFormDisplay={this.props.changeFormDisplay} />}
           </Card.Body>
         </Card>
       </div>
