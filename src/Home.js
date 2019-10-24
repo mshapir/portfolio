@@ -2,7 +2,7 @@ import React from 'react';
 import Buttons from './Buttons.js';
 import { ButtonGroup, ToggleButton } from 'react-bootstrap';
 
-class LandingPage extends React.Component {
+class Home extends React.Component {
   state = {
     user: this.props.user,
     portfolio: null
@@ -30,4 +30,4 @@ class LandingPage extends React.Component {
   }
 }
 
-export default LandingPage;
+export default Home;

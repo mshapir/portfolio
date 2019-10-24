@@ -1,9 +1,8 @@
 import React from 'react';
-import LandingPage from './LandingPage.js';
+import Home from './Home.js';
 import FormContainer from './FormContainer.js';
-import { ButtonGroup, ToggleButton } from 'react-bootstrap';
 
-class Home extends React.Component {
+class LandingPage extends React.Component {
   state = {
     user: null,
     loggedIn: false,
@@ -37,11 +36,11 @@ class Home extends React.Component {
     return (
       this.state.loggedIn
         ?
-        <LandingPage />
+        <Home />
         :
         <FormContainer isSignIn={this.state.displaySignIn} changeFormDisplay={this.changeFormDisplay} />
     );
   }
 }
 
-export default Home;
+export default LandingPage;
