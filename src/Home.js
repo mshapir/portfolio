@@ -1,12 +1,12 @@
 import React from 'react';
 import Buttons from './Buttons.js';
-import { ButtonGroup, ToggleButton, Table } from 'react-bootstrap';
+import { Table } from 'react-bootstrap';
 
 class Home extends React.Component {
   state = {
     user: this.props.user,
-    portfolio: null,
-    transactions: null,
+    portfolio: {},
+    transactions: {},
     activeView: 'portfolio'
   }
 
@@ -18,7 +18,13 @@ class Home extends React.Component {
     // make API call to get portfolio for current user
     const apiResult = {
       networth: 0,
-      entries: {}
+      entries: {
+        AAPL: {
+          bought_price: 1,
+          current_price: 2,
+          total_shares: 3
+        }
+      }
     };
     this.setState({
       portfolio: apiResult
@@ -59,7 +65,7 @@ class Home extends React.Component {
                 const entry = this.state.portfolio.entries[key];
                   return (
                     <tr key={key} style={{borderBottom: '1px solid #ccc', lineHeight: '1.8em'}}>
-                      <td style={{color: entry.bought_price < entry.current_price ? 'green' : (entry.bought_price > entry.current_price ? 'red' : 'gray')}}> {key} - {entry.total_shares} SHARES {entry.current_price}</td>
+                      <td style={{color: entry.bought_price < entry.current_price ? 'green' : (entry.bought_price > entry.current_price ? 'red' : 'gray')}}> {key} - {entry.total_shares} SHARES @ ${entry.current_price}</td>
                     </tr>)
                 })
                 :

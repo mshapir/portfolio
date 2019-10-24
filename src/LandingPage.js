@@ -5,7 +5,7 @@ import FormContainer from './FormContainer.js';
 class LandingPage extends React.Component {
   state = {
     user: null,
-    loggedIn: false,
+    loggedIn: true,
     displaySignIn: true
   }
 
