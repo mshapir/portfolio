@@ -1,7 +1,6 @@
 import React from 'react';
-import logo from './logo.svg';
 import './App.css';
-import SignUp from './SignUp';
+import FormContainer from './FormContainer';
 
 function App() {
   return (
@@ -9,7 +8,7 @@ function App() {
       <header className="App-header">
         Portfolio
       </header>
-      <SignUp />
+      <FormContainer isSignIn />
     </div>
   );
 }

@@ -3,7 +3,8 @@ import { Form, Button, InputGroup, Col } from 'react-bootstrap';
 
 class SignUpForm extends React.Component {
   state = {
-    name: '',
+    firstName: '',
+    lastName: '',
     username: '',
     email: '',
     password: '',
@@ -16,11 +17,19 @@ class SignUpForm extends React.Component {
     if (form.checkValidity() === false) {
       event.preventDefault();
       event.stopPropagation();
+    } else {
+      this.setState({
+        validated: true,
+        firstName: this.refs.firstName.value,
+        lastName: this.refs.lastName.value,
+        username: this.refs.username.value,
+        password: this.refs.password.value
+      }, () => this.signUp());
     }
+  }
 
-    this.setState({
-      validated: true
-    });
+  function signUp() {
+    // call API here for user creation 
   }
 
   render() {
@@ -34,7 +43,8 @@ class SignUpForm extends React.Component {
                 required
                 type="text"
                 placeholder="First name"
-                defaultValue="Mark"
+                pattern="^[_A-z]"
+                ref="firstName"
               />
               <Form.Control.Feedback>Looks good!</Form.Control.Feedback>
             </Form.Group>
@@ -44,7 +54,8 @@ class SignUpForm extends React.Component {
                 required
                 type="text"
                 placeholder="Last name"
-                defaultValue="Otto"
+                pattern="^[_A-z]"
+                ref="lastName"
               />
               <Form.Control.Feedback>Looks good!</Form.Control.Feedback>
             </Form.Group>
@@ -58,6 +69,8 @@ class SignUpForm extends React.Component {
                   type="text"
                   placeholder="Username"
                   aria-describedby="inputGroupPrepend"
+                  pattern="^[_A-z0-9]{1,}$"
+                  ref="username"
                   required
                 />
                 <Form.Control.Feedback type="invalid">
@@ -67,36 +80,22 @@ class SignUpForm extends React.Component {
             </Form.Group>
           </Form.Row>
           <Form.Row>
-            <Form.Group as={Col} md="6" controlId="validationCustom03">
-              <Form.Label>City</Form.Label>
-              <Form.Control type="text" placeholder="City" required />
+            <Form.Group as={Col} md="9" controlId="formBasicEmail">
+              <Form.Label>Email</Form.Label>
+              <Form.Control type="email" placeholder="user@portfolio.com" ref="email" required />
               <Form.Control.Feedback type="invalid">
-                Please provide a valid city.
+                Please provide a valid email.
               </Form.Control.Feedback>
             </Form.Group>
-            <Form.Group as={Col} md="3" controlId="validationCustom04">
-              <Form.Label>State</Form.Label>
-              <Form.Control type="text" placeholder="State" required />
+            <Form.Group as={Col} md="3" controlId="formBasicPassword">
+              <Form.Label>Password</Form.Label>
+              <Form.Control type="password" placeholder="Password" ref="password" required />
               <Form.Control.Feedback type="invalid">
-                Please provide a valid state.
-              </Form.Control.Feedback>
-            </Form.Group>
-            <Form.Group as={Col} md="3" controlId="validationCustom05">
-              <Form.Label>Zip</Form.Label>
-              <Form.Control type="text" placeholder="Zip" required />
-              <Form.Control.Feedback type="invalid">
-                Please provide a valid zip.
+                Please provide a valid password.
               </Form.Control.Feedback>
             </Form.Group>
           </Form.Row>
-          <Form.Group>
-            <Form.Check
-              required
-              label="Agree to terms and conditions"
-              feedback="You must agree before submitting."
-            />
-          </Form.Group>
-          <Button type="submit">Submit form</Button>
+          <Button type="submit">Sign Up</Button>
         </Form>
       </div>
     );

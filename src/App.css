@@ -20,9 +20,8 @@
   color: #09d3ac;
 }
 
-.SignUp {
-  display: flex;
-  max-width: 80vh;
+.AuthForm {
+  width: 50%;
   margin: auto;
   padding-top: 80px;
 }
