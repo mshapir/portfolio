@@ -24,6 +24,9 @@ class Buttons extends React.Component {
           <ToggleButton type="radio" name="radio" value="transactions" checked={this.state.checked === 'transactions'}>
             Transacations
           </ToggleButton>
+          <ToggleButton type="radio" name="radio" value="signOut" checked={this.state.checked === 'signOut'}>
+            Sign Out
+          </ToggleButton>
         </ButtonGroup>
       </div>
     );
