@@ -1,6 +1,6 @@
 import React from 'react';
 import './App.css';
-import Home from './Home.js';
+import LandingPage from './LandingPage.js';
 
 function App() {
   return (
@@ -8,7 +8,7 @@ function App() {
       <header className="Header">
         Portfolio
       </header>
-      <Home />
+      <LandingPage />
     </div>
   );
 }

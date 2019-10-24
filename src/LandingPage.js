@@ -1,33 +1,47 @@
 import React from 'react';
-import Buttons from './Buttons.js';
+import LandingPage from './LandingPage.js';
+import FormContainer from './FormContainer.js';
 import { ButtonGroup, ToggleButton } from 'react-bootstrap';
 
-class LandingPage extends React.Component {
+class Home extends React.Component {
   state = {
-    user: this.props.user,
-    portfolio: null
+    user: null,
+    loggedIn: false,
+    displaySignIn: true
   }
 
   handleChange(event) {
   }
 
   componentDidMount() {
-    this.fetchPortfolio();
+    // this.fetchUser();
   }
 
-  fetchPortfolio() {
-    // make API call to get portfolio for current user
-    const apiResult = {};
+  fetchUser() {
+    // check local storage to get user
+    const loggedIn = true;
+    if (loggedIn) {
+      this.setState({
+        loggedIn: loggedIn
+      });
+    }
+  }
+
+  changeFormDisplay = (isSignIn) => {
     this.setState({
-      portfolio: apiResult
+      displaySignIn: isSignIn
     });
   }
 
   render() {
     return (
-      <Buttons />
+      this.state.loggedIn
+        ?
+        <LandingPage />
+        :
+        <FormContainer isSignIn={this.state.displaySignIn} changeFormDisplay={this.changeFormDisplay} />
     );
   }
 }
 
-export default LandingPage;
+export default Home;
