@@ -32,11 +32,18 @@ class LandingPage extends React.Component {
     });
   }
 
+  signOut = () => {
+    this.setState({
+      loggedIn: false,
+      displaySignIn: true
+    });
+  }
+
   render() {
     return (
       this.state.loggedIn
         ?
-        <Home />
+        <Home signOut={this.signOut} />
         :
         <FormContainer isSignIn={this.state.displaySignIn} changeFormDisplay={this.changeFormDisplay} />
     );

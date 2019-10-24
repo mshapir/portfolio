@@ -57,6 +57,7 @@ class Home extends React.Component {
       switch (view) {
         case 'portfolio': return this.fetchPortfolio();
         case 'transactions': return this.fetchTransacations();
+        case 'signOut': return this.props.signOut();
       }
     }
   }
