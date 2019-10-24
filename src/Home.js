@@ -6,7 +6,7 @@ class Home extends React.Component {
   state = {
     user: this.props.user,
     portfolio: {},
-    transactions: {},
+    transactions: [],
     activeView: 'portfolio'
   }
 
@@ -33,7 +33,15 @@ class Home extends React.Component {
 
   fetchTransacations() {
     // make API call to get portfolio for current user
-    const apiResult = {};
+    const apiResult = [
+      {
+        id: 123,
+        transaction_type: 'buy',
+        ticker_name: 'AAPL',
+        number_of_shares: 3,
+        ticker_price: 1
+      }
+    ];
     this.setState({
       transactions: apiResult
     });
@@ -48,7 +56,7 @@ class Home extends React.Component {
 
       switch (view) {
         case 'portfolio': return this.fetchPortfolio();
-        case 'transactions': this.fetchTransacations();
+        case 'transactions': return this.fetchTransacations();
       }
     }
   }
@@ -57,10 +65,13 @@ class Home extends React.Component {
     return (
       <div>
         <Buttons updateActiveView={this.updateActiveView} />
-        <h2>Portfolio (${this.state.portfolio.networth})</h2>
+        {this.state.activeView === 'portfolio' ?
+          <h2>Portfolio (${this.state.portfolio.networth})</h2> : <h2>Transactions</h2>}
         <Table responsive>
           <tbody>
-            {this.state.portfolio.entries ?
+            {
+              this.state.activeView === 'portfolio' && this.state.portfolio.entries
+              ?
               Object.keys(this.state.portfolio.entries).map(key => {
                 const entry = this.state.portfolio.entries[key];
                   return (
@@ -68,11 +79,18 @@ class Home extends React.Component {
                       <td style={{color: entry.bought_price < entry.current_price ? 'green' : (entry.bought_price > entry.current_price ? 'red' : 'gray')}}> {key} - {entry.total_shares} SHARES @ ${entry.current_price}</td>
                     </tr>)
                 })
-                :
-                <tr></tr>
-              }
-            </tbody>
-          </Table>
+              : this.state.activeView === 'transactions' && this.state.transactions ?
+              this.state.transactions.map(transaction => {
+                return (
+                  <tr key={transaction.id} style={{borderBottom: '1px solid #ccc', lineHeight: '1.8em'}}>
+                    <td> {transaction.transaction_type.toUpperCase()} ({transaction.ticker_name}) - {transaction.number_of_shares} SHARES @ ${transaction.ticker_price}</td>
+                  </tr>)
+              })
+              :
+              <tr></tr>
+            }
+          </tbody>
+        </Table>
       </div>
     );
   }

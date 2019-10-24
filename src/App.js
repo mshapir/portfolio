@@ -6,7 +6,7 @@ function App() {
   return (
     <div className="App">
       <header className="Header">
-        Portfolio
+        Stock App
       </header>
       <LandingPage />
     </div>
