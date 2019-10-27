@@ -4,52 +4,61 @@ import { Form, Button, InputGroup, Col } from 'react-bootstrap';
 class SignInForm extends React.Component {
   state = {
     username: '',
-    password: '',
-    validated: false
+    password: ''
   };
 
-  handleSubmit(event) {
-    const form = event.currentTarget;
-    if (form.checkValidity() === false) {
-      event.preventDefault();
-      event.stopPropagation();
-    } else {
-      this.setState({
-        validated: true,
-        username: this.refs.username.value,
-        password: this.refs.password.value
-      }, () => this.signIn());
-    }
+  handleSubmit = (event) => {
+    event.preventDefault();
+    this.setState({
+      username: this.refs.username.value,
+      password: this.refs.password.value
+    }, () => this.signIn());
   }
 
-  signIn() {
+  signIn = () => {
     // call API here for authentication
+    fetch('https://stock-api-mshapir.herokuapp.com/users/login', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({
+        email: this.state.username,
+        password: this.state.password
+      })
+    })
+    .then(r => r.json())
+    .then(data => {
+      if (data.hasOwnProperty('error')) {
+        this.props.showToast("Error", data.error);
+        alert(data.error);
+      } else {
+        this.props.updateUser(data.user);
+        localStorage.setItem("token", data.token);
+      }
+    });
   }
 
   render() {
     return (
       <div>
-        <Form noValidate validated={this.state.validated} onSubmit={this.handleSubmit.bind(this)}>
-        <Form.Group controlId="validationCustomUsername">
-          <Form.Label>Username</Form.Label>
+        <Form onSubmit={this.handleSubmit}>
+        <Form.Group>
+          <Form.Label>Email</Form.Label>
             <InputGroup>
               <InputGroup.Prepend>
                 <InputGroup.Text id="inputGroupPrepend">@</InputGroup.Text>
               </InputGroup.Prepend>
               <Form.Control
                 ref="username"
-                type="text"
-                placeholder="Username"
-                pattern="^[_A-z0-9]{1,}$"
+                type="email"
+                placeholder="Email"
                 aria-describedby="inputGroupPrepend"
                 required
               />
-              <Form.Control.Feedback type="invalid">
-                Please enter a valid username.
-              </Form.Control.Feedback>
             </InputGroup>
           </Form.Group>
-          <Form.Group controlId="formGroupPassword">
+          <Form.Group>
             <Form.Label>Password</Form.Label>
             <Form.Control
               ref="password"

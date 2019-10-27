@@ -7,35 +7,54 @@ class SignUpForm extends React.Component {
     lastName: '',
     username: '',
     email: '',
-    password: '',
-    validated: false
+    password: ''
   };
 
-  handleSubmit(event) {
-    console.log(event);
-    const form = event.currentTarget;
-    if (form.checkValidity() === false) {
-      event.preventDefault();
-      event.stopPropagation();
-    } else {
-      this.setState({
-        validated: true,
-        firstName: this.refs.firstName.value,
-        lastName: this.refs.lastName.value,
-        username: this.refs.username.value,
-        password: this.refs.password.value
-      }, () => this.signUp());
-    }
+  handleSubmit = (event) => {
+    event.preventDefault();
+    this.setState({
+      firstName: this.refs.firstName.value,
+      lastName: this.refs.lastName.value,
+      username: this.refs.username.value,
+      password: this.refs.password.value,
+      email: this.refs.email.value
+    }, () => this.signUp());
   }
 
-  signUp() {
+  signUp = () => {
     // call API here for user creation
+    fetch('https://stock-api-mshapir.herokuapp.com/users/', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({
+        name: this.state.firstName + ' ' + this.state.lastName,
+        email: this.state.email,
+        password: this.state.password,
+        password_confirmation: this.state.password
+      })
+    })
+    .then(r => r.json())
+    .then(data => {
+      console.log(data);
+      if (data.hasOwnProperty('errors')) {
+        this.props.showToast("Error", data.errors);
+        alert(`${data.errors}`);
+      } else {
+        localStorage.setItem("token", data.token);
+        this.props.updateUser(data.user);
+        const message = "User " + data.user.email + " was created successfully!";
+        this.props.showToast("Success", message);
+        alert(`User ${data.user.email} was created`);
+      }
+    });
   }
 
   render() {
     return (
       <div>
-        <Form noValidate validated={this.state.validated} onSubmit={this.handleSubmit.bind(this)}>
+        <Form onSubmit={this.handleSubmit}>
           <Form.Row>
             <Form.Group as={Col} md="4" controlId="validationCustom01">
               <Form.Label>First name</Form.Label>

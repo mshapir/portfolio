@@ -32,3 +32,19 @@
   margin-left: auto;
   margin-right: 15px;
 }
+
+.BuyForm {
+  text-align: center;
+  margin: 20px;
+}
+
+.ToastContainer {
+  position: relative;
+  min-height: 200px;
+}
+
+.ResultToast {
+  position: absolute;
+  top: 0;
+  right: 0;
+}

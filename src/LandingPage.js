@@ -5,25 +5,37 @@ import FormContainer from './FormContainer.js';
 class LandingPage extends React.Component {
   state = {
     user: null,
-    loggedIn: true,
+    loggedIn: false,
     displaySignIn: true
   }
 
-  handleChange(event) {
-  }
-
   componentDidMount() {
-    // this.fetchUser();
+    this.fetchUser();
   }
 
   fetchUser() {
     // check local storage to get user
-    const loggedIn = true;
-    if (loggedIn) {
-      this.setState({
-        loggedIn: loggedIn
-      });
-    }
+    let token = localStorage.getItem("token")
+    return fetch('https://stock-api-mshapir.herokuapp.com/users/current_user',{
+      method: 'POST',
+      headers: {
+        Authorization: `${token}`
+      }
+    })
+    .then(r => r.json())
+    .then(data => {
+        this.setState({
+          user: data,
+          loggedIn: true
+        });
+    });
+  }
+
+  updateUser = (user) => {
+    this.setState({
+      user: user,
+      isLoggedIn: true
+    });
   }
 
   changeFormDisplay = (isSignIn) => {
@@ -34,6 +46,7 @@ class LandingPage extends React.Component {
 
   signOut = () => {
     this.setState({
+      user: null,
       loggedIn: false,
       displaySignIn: true
     });
@@ -43,9 +56,9 @@ class LandingPage extends React.Component {
     return (
       this.state.loggedIn
         ?
-        <Home signOut={this.signOut} />
+        <Home user={this.state.user} signOut={this.signOut} />
         :
-        <FormContainer isSignIn={this.state.displaySignIn} changeFormDisplay={this.changeFormDisplay} />
+        <FormContainer isSignIn={this.state.displaySignIn} changeFormDisplay={this.changeFormDisplay} updateUser={this.updateUser} />
     );
   }
 }
