@@ -15,7 +15,10 @@ class LandingPage extends React.Component {
 
   fetchUser() {
     // check local storage to get user
-    let token = localStorage.getItem("token")
+    let token = localStorage.getItem("token");
+    if (!token) {
+      return;
+    }
     return fetch('https://stock-api-mshapir.herokuapp.com/users/current_user',{
       method: 'POST',
       headers: {
@@ -45,6 +48,7 @@ class LandingPage extends React.Component {
   }
 
   signOut = () => {
+    localStorage.clear();
     this.setState({
       user: null,
       loggedIn: false,
